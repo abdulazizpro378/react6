@@ -92,7 +92,7 @@ const StudentForm = memo(
         </FormGroup>
 
         <Button className="mt-3" type="submit">
-          {select ? "save" : "add"}
+          {select ? "save" : "Add-Product"}
         </Button>
       </Form>
     );

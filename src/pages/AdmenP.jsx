@@ -1,4 +1,3 @@
-
 import { Fragment, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -9,39 +8,25 @@ import StudentTable from "../components/StudentTable";
 import { useForm } from "../hooks/useForm";
 
 const AdmenP = () => {
+  const { validated, product, products, select, handleChange, submit, editProduct, deleteDebt, sortProductsByPrice } = useForm();
 
-  const {validated, product, products,select, handleChange, submit,editProduct,deleteDebt} =useForm()
-  
-
-  
   const [search, setSearch] = useState("");
 
-
-
-
-
-  // search logika
-
-  const handeleSearch = (e) => {
+  // Qidirish funksiyasi
+  const handleSearch = (e) => {
     setSearch(e.target.value.trim().toLowerCase());
   };
 
-  const resulte = products.filter((product) =>
+  const filteredProducts = products.filter((product) =>
     product.ProductName.toLowerCase().includes(search)
   );
 
-  // const CategoryFillter = resulte.filter(product=>product.Category)
-
-  // sort price
-
-  const getSort = () => {
-    return resulte.sort((a, b) => +b.Price - +a.Price);
+  // Narx bo'yicha saralash
+  const getSortedProducts = () => {
+    return [...filteredProducts].sort((a, b) => a.Price - b.Price);
   };
 
-
-  const sortPrice = getSort();
-
-
+  const sortedProducts = getSortedProducts();
 
   return (
     <Fragment>
@@ -57,8 +42,8 @@ const AdmenP = () => {
             />
           </Col>
           <Col lg={7}>
-            <Header search={search} handeleSearch={handeleSearch} />
-            <StudentTable products={sortPrice}  editProduct={editProduct} deleteDebt={deleteDebt}/>
+            <Header search={search} handleSearch={handleSearch} sortProductsByPrice={sortProductsByPrice} />
+            <StudentTable products={sortedProducts} editProduct={editProduct} deleteDebt={deleteDebt} />
           </Col>
         </Row>
       </Container>

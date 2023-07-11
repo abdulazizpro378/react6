@@ -6,8 +6,6 @@ export const useForm = () => {
   const [validated, setValidate] = useState(false);
   // const [idCounter, setIdCounter] = useState(1);
   const [select, setSelect] = useState(null);
-  
-
 
   const [product, setProduct] = useState({
     ProductName: "",
@@ -88,8 +86,12 @@ export const useForm = () => {
     setproducts(deleteProduct);
     localStorage.setItem("product", JSON.stringify(deleteProduct));
   };
-// delete end
+  // delete end
 
+  const sortProductsByPrice = useCallback(() => {
+    const sortedProducts = [...products].sort((a, b) => a.Price - b.Price);
+    setproducts(sortedProducts);
+  }, [products]);
 
   return {
     validated,
@@ -100,5 +102,6 @@ export const useForm = () => {
     submit,
     editProduct,
     deleteDebt,
+    sortProductsByPrice,
   };
 };
